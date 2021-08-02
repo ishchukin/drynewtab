@@ -1,0 +1,6 @@
+{
+    "name": "drynewtab",
+    "version": "0.0.0.1",
+    "manifest_version": 3,
+    "description": "A Chromium extension"
+}
