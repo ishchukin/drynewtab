@@ -2,5 +2,14 @@
     "name": "drynewtab",
     "version": "0.0.0.1",
     "manifest_version": 3,
-    "description": "A Chromium extension"
+    "description": "A Chromium extension",
+    "chrome_url_overrides":
+    {
+        "newtab": "newtab.html"
+    },
+    "permissions":
+    [
+      "storage",
+      "bookmarks"
+    ]
 }
