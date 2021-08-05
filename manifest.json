@@ -2,7 +2,7 @@
     "name": "drynewtab",
     "version": "0.0.0.1",
     "manifest_version": 3,
-    "description": "A Chromium extension",
+    "description": "A Chromium extension to display selected bookmarks folder as a New Tab page",
     "chrome_url_overrides":
     {
         "newtab": "newtab.html"
