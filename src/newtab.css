@@ -1,0 +1,16 @@
+.bookmark-group {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2px;
+}
+
+.bookmark {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	border: solid;
+	border-width: 1px;
+	text-decoration: none;
+	color: inherit;
+}
