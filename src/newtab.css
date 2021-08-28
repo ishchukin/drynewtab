@@ -2,15 +2,68 @@
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 2px;
+	margin: 2px;
+}
+
+.bookmark-folder-header {
+	display: block;
+	width: 100%;
+	border: 1px solid;
+	font-size: larger;
+	background: none;
+	text-align: left;
+}
+
+.bookmark-folder {
+	color: inherit;
+}
+
+.bookmark-folder-content {
+	padding-left: 20px;
 }
 
 .bookmark {
 	display: block;
-	overflow: hidden;
+	font-family: sans-serif;
 	white-space: nowrap;
-	text-overflow: ellipsis;
-	border: solid;
-	border-width: 1px;
+	border: 1px solid #D0D0D0;
 	text-decoration: none;
 	color: inherit;
+	padding: 2px;
+	display: flex;
+  align-items: center;
+	min-width: 0;
+}
+
+.bookmark img {
+	margin: 4px;
+}
+
+.bookmark span {
+	overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bookmark:hover {
+	border-color: #808080;
+}
+
+.triangle-down {
+	display: inline-block;
+  width: 0; 
+  height: 0; 
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent; 
+  border-top: 0.5rem solid #000000;
+	margin-right: 4px;
+}
+
+.triangle-right {
+	display: inline-block;
+	width: 0; 
+  height: 0;
+	border-top: 0.5rem solid transparent;
+  border-bottom: 0.5rem solid transparent;
+	border-right: 0.5rem solid #000000;
+	margin-right: 4px;
 }

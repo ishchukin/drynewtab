@@ -9,33 +9,63 @@
 	var bookmarks = document.getElementById('bookmarks');
 	var body = document.getElementsByTagName('body')[0];
 
+	var bookmark_template = document.createElement('a');
+	bookmark_template.className = 'bookmark';
+	var icon = document.createElement('img');
+	icon.alt = '';
+	icon.width = 16;
+	icon.height = 16;
+	var span = document.createElement('span');
+	bookmark_template.appendChild(icon);
+	bookmark_template.appendChild(span);
+
 	function make_bookmark(bookmark) {
-		var icon = document.createElement('img');
-		icon.src = 'chrome://favicon/size/16@1x/' + bookmark.url;
-		var title = bookmark.title;
-		var text = document.createTextNode(title);
-		var bookmark_node = document.createElement('a');
-		bookmark_node.appendChild(icon);
-		bookmark_node.appendChild(text);
-		bookmark_node.title = title;
+		var bookmark_node = bookmark_template.cloneNode(true);
+		bookmark_node.children[0].src = 'chrome://favicon/size/16@1x/' + bookmark.url;
+		bookmark_node.title = bookmark.title;
+		bookmark_node.children[1].textContent = bookmark.title;
 		bookmark_node.href = bookmark.url;
-		bookmark_node.className = 'bookmark';
 		return bookmark_node;
 	}
 
-	function draw_bookmark_group(children) {
-		var group = document.createElement('div');
-		group.className = 'bookmark-group';
+	function draw_bookmark_group(children, context) {
+		var group;
 		children.forEach(child => {
 			if (child.url) {
+				if (!group) {
+					group = document.createElement('div');
+					group.className = 'bookmark-group';
+				}
 				group.appendChild(make_bookmark(child));
 			}
 			else {
-				draw_bookmark_group(child.children);
+				if (group) {
+					context.appendChild(group);
+					group = null;
+				}
+				var folder = document.createElement('div');
+				folder.className = 'bookmark-folder';
+				var header = document.createElement('button');
+				header.className = 'bookmark-folder-header';
+				header.type = 'button';
+				var content = document.createElement('div');
+				content.className = 'bookmark-folder-content';
+				var triangle = document.createElement('div');
+				triangle.className = 'triangle-down';
+				header.appendChild(triangle);
+				header.appendChild(document.createTextNode(child.title));
+				folder.appendChild(header);
+				folder.appendChild(content);
+				draw_bookmark_group(child.children, content);
+				context.appendChild(folder);
 			}
 		});
-		body.appendChild(group);
+		if (group) {
+		context.appendChild(group);
+		}
 	}
 
-	chrome.bookmarks.getTree(draw_bookmark_group);
+	chrome.bookmarks.getTree(function (root) {
+		draw_bookmark_group(root[0].children, body);
+	});
 }());
