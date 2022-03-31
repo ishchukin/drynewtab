@@ -1,25 +1,22 @@
 {
-    "name": "Dry New Tab",
-    "version": "0.0.2",
-    "manifest_version": 2,
-    "description": "A Chromium extension to display bookmarks as the New Tab page",
-    "author": "Ilya Shchukin",
-    "homepage_url": "https://github.com/ishchukin/drynewtab",
-    "icons":
-    {
-      "16": "icon16.png",
-      "32": "icon32.png",
-      "48": "icon48.png",
-     "128": "icon128.png"
-    },
-    "chrome_url_overrides":
-    {
-        "newtab": "newtab.html"
-    },
-    "permissions":
-    [
-      "storage",
-      "bookmarks",
-      "chrome://favicon/"
-    ]
+  "name": "Dry New Tab",
+  "version": "0.0.2",
+  "manifest_version": 2,
+  "description": "A Chromium extension to display bookmarks as the New Tab page",
+  "author": "Ilya Shchukin",
+  "homepage_url": "https://github.com/ishchukin/drynewtab",
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "permissions": [
+    "storage",
+    "bookmarks",
+    "chrome://favicon/"
+  ]
 }
