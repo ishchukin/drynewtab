@@ -21,6 +21,7 @@ body {
 
 .bookmark-folder {
     color: inherit;
+    margin: 2px;
 }
 
 .bookmark-folder-content {

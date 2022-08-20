@@ -27,25 +27,28 @@
         return bookmarkNode
     }
 
+    function uncollapseBookmarkFolder() {
+        this.children[0].className = 'triangle-down';
+        this.onclick = collapseBookmarkFolder;
+        const content = document.createElement('div');
+        content.className = 'bookmark-folder-content';
+        chrome.storage.local.get('collapsed', storage => {
+            const updated = (storage.collapsed || []).filter(item => item !== this.id);
+            chrome.storage.local.set({ collapsed: updated });
+            chrome.bookmarks.getSubTree(this.id, node => {
+                drawBookmarkGroup(node[0].children, content, updated || []);
+            });
+            this.parentNode.insertBefore(content, this.nextSibling);
+        })
+    }
+
     function collapseBookmarkFolder() {
-        this.onclick = function () {
-            this.children[0].className = 'triangle-down'
-            this.onclick = collapseBookmarkFolder
-            const content = document.createElement('div')
-            content.className = 'bookmark-folder-content'
-            chrome.storage.local.get('collapsed', storage => {
-                chrome.storage.local.set({ collapsed: (storage.collapsed || []).filter(item => item !== this.id) })
-                chrome.bookmarks.getSubTree(this.id, node => {
-                    drawBookmarkGroup(node[0].children, content, storage.collapsed || [])
-                })
-            })
-            this.parentNode.insertBefore(content, this.nextSibling)
-        }
+        this.onclick = uncollapseBookmarkFolder
         chrome.storage.local.get('collapsed', storage => {
             if (storage.collapsed) {
                 storage.collapsed.push(this.id)
             } else {
-                storage.collapsed = [this.id]
+                storage.collapsed = [ this.id ]
             }
             chrome.storage.local.set({ collapsed: storage.collapsed })
         })
@@ -73,14 +76,15 @@
                 header.className = 'bookmark-folder-header'
                 header.id = child.id
                 header.type = 'button'
-                header.onclick = collapseBookmarkFolder
                 const content = document.createElement('div')
                 content.className = 'bookmark-folder-content'
                 const triangle = document.createElement('div')
                 if (!collapsed.includes(child.id)) {
+                    header.onclick = collapseBookmarkFolder
                     triangle.className = 'triangle-down'
                     drawBookmarkGroup(child.children, content, collapsed)
                 } else {
+                    header.onclick = uncollapseBookmarkFolder
                     triangle.className = 'triangle-right'
                 }
                 header.appendChild(triangle)
