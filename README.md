@@ -17,3 +17,6 @@ The version published in Edge Add-ons store is not updated past 0.0.2 . I do not
 ### 2022-08-20 - 0.0.3
 
 Small fixes of styling and folder uncollapse.
+
+### 2022-09-08 - 0.0.4
+
